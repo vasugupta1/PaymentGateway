@@ -1,2 +1,1 @@
 # PaymentGateway
-PaymentGateway
