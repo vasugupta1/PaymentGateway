@@ -6,7 +6,9 @@ using PaymentGateway.Common.Models.Payment;
 using PaymentGateway.Services.PaymentProcessor.Interface;
 using OneOf;
 using PaymentGateway.Services.PaymentProcessor.Exceptions;
-using PaymentGateway.API.Auth;
+using PaymentGateway.API.Services.Auth;
+using Microsoft.AspNetCore.Http;
+using PaymentGateway.Services.PaymentProcessor.Models;
 
 namespace PaymentGateway.API.Controllers.v1
 {
@@ -26,6 +28,9 @@ namespace PaymentGateway.API.Controllers.v1
 
         [HttpPost]
         [BasicAuth("PaymentGateway-Authentication")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(SuccessfulPaymentProcessing))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(UnsuccessfulPaymentProcessing))]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         public async Task<IActionResult> ProcessPayment([FromBody] PaymentProcessingRequest processingRequest)
         {
             if (!ModelState.IsValid)

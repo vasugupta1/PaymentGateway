@@ -1,7 +1,7 @@
 using System;
 using Microsoft.AspNetCore.Mvc;
 
-namespace PaymentGateway.API.Auth
+namespace PaymentGateway.API.Services.Auth
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class BasicAuthAttribute : TypeFilterAttribute
