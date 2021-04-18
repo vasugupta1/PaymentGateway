@@ -40,7 +40,7 @@ namespace PaymentGateway.API.Controllers.v1
             try
             {
                 var oneOfProcessingResponse = await _paymentProcessorService.ProcessPayment(processingRequest);
-                
+
                 return oneOfProcessingResponse.Match<IActionResult>(
                     SuccessfulPaymentProcessing => Ok(SuccessfulPaymentProcessing),
                     UnsuccessfulPaymentProcessing => new BadRequestObjectResult(UnsuccessfulPaymentProcessing));
