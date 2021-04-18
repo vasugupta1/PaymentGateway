@@ -31,6 +31,7 @@ namespace PaymentGateway.Services.Banking
                 // }                    
                 // var contentString = await response.Content.ReadAsStringAsync();
                 // return JsonSerializer.Deserialize<BankingResponse>(contentString);
+
                 return new BankingResponse()
                 {
                     Id = Guid.NewGuid().ToString(),

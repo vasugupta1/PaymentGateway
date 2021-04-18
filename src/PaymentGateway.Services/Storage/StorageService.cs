@@ -1,5 +1,4 @@
 using System;
-using Microsoft.EntityFrameworkCore;
 using PaymentGateway.Common.Models.Storage;
 using PaymentGateway.Services.Storage.Interface;
 using System.Threading.Tasks;

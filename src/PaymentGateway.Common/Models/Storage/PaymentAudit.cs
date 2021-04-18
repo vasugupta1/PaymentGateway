@@ -1,21 +1,27 @@
 using System;
 using PaymentGateway.Common.Models.Enums;
-using PaymentGateway.Common.Models.Payment;
+using System.Text.Json.Serialization;
 
 namespace PaymentGateway.Common.Models.Storage
 {
     public class PaymentAudit
     {
-        public PaymentProcessingRequest PaymentProcessingRequest;
+        [JsonPropertyName("currencyCode")]
+        public string CurrencyCode { get; set; }
+        [JsonPropertyName("expiryMonth")]
+        public int ExpiryMonth { get; set; }
+        [JsonPropertyName("expiryYear")]
+        public int ExpiryYear { get; set; }
+        [JsonPropertyName("cvv")]
+        public int CVV { get; set; }
+        [JsonPropertyName("cardNumber")]
+        public string CardNumber { get; set; }
+        [JsonPropertyName("amount")]
+        public double Amount { get; set; }
+        [JsonPropertyName("Status")]
         public Status Status;
-        public PaymentAudit(PaymentProcessingRequest paymentProcessingRequest, Status status)
-        {
-            PaymentProcessingRequest = paymentProcessingRequest ?? throw new ArgumentNullException(nameof(paymentProcessingRequest));
-            Status = status;
-        }
+        [JsonPropertyName("iv")]
+        public string IV;
 
-        public PaymentAudit()
-        {
-        }
     }
 }

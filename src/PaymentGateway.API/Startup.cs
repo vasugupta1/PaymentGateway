@@ -33,14 +33,12 @@ namespace PaymentGateway.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var configObject = new CustomConfiguration();
-            Configuration.GetSection(nameof(CustomConfiguration)).Bind(configObject);
+            
+            var configObject = GetConfigObject();
+            
             services.AddControllers();
 
-            services.AddDbContext<PaymentAuditDBContext>(options => options.UseInMemoryDatabase("PaymentAudits"));
-
             services.AddScoped<IBankingRefitServiceProvider>(x => RestService.For<IBankingRefitServiceProvider>(configObject.Bank.Url));
-            services.AddScoped<DbContext, PaymentAuditDBContext>();
             services.AddScoped<IBankingService, BankingService>();
             services.AddScoped<IStorageService<PaymentAudit>, StorageService<PaymentAudit>>();
             services.AddScoped<IPaymentProcessorService, PaymentProcessorService>();
@@ -60,6 +58,13 @@ namespace PaymentGateway.API
             {
                 x.SwaggerDoc("v1", new OpenApiInfo { Title = "Payment Gateway", Version = "v1" });
             });
+        }
+
+        private CustomConfiguration GetConfigObject()
+        {
+            var configObject = new CustomConfiguration();
+            Configuration.GetSection(nameof(CustomConfiguration)).Bind(configObject);
+            return configObject;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
