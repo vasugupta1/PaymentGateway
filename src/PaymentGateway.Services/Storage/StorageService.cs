@@ -5,53 +5,49 @@ using PaymentGateway.Services.Storage.Interface;
 using System.Threading.Tasks;
 using PaymentGateway.Services.Storage.Exceptions;
 using OneOf;
+using StackExchange.Redis;
+using System.Text.Json;
 
 namespace PaymentGateway.Services.Storage
 {
-    public class StorageService : IStorageService<PaymentAudit>
+    public class StorageService<T> : IStorageService<T>
     {   
-        private readonly PaymentAuditDBContext _context;
-        public StorageService(PaymentAuditDBContext context)
+        private readonly IDatabase _database;
+        public StorageService(IDatabase database)
         {
-            _context = context ?? throw new ArgumentNullException(nameof(context));
+            _database = database ?? throw new ArgumentNullException(nameof(database));
         }
-        public async Task<OneOf<PaymentAudit, NotFoundResponse>> Get(string id)
+        public async Task<OneOf<T, NotFoundResponse>> Get(string key)
         {
-            if(string.IsNullOrEmpty(id))
-                throw new ArgumentNullException(nameof(id));
+            if(string.IsNullOrEmpty(key))
+                throw new ArgumentNullException(nameof(key));
             try
             {
-                var paymentRecord = await _context.PaymentAudits.FirstOrDefaultAsync(x => x.BankTranscationId == id);
-                if(paymentRecord is null )
+                var response = await _database.StringGetAsync(key);
+                if (!string.IsNullOrEmpty(response))
                 {
-                    return new NotFoundResponse(){
-                        ErrorMessage = $"Payment record was not found for {id}"
-                    };
+                    return JsonSerializer.Deserialize<T>(response);
                 }
-                return paymentRecord;
+
+                return new NotFoundResponse()
+                {
+                    ErrorMessage = $"Payment record was not found for given key"
+                };
             }
             catch(Exception ex)
             {
-                throw new StorageException("Something went wrong when trying to get payment audit from database, please check inner exception", ex);
+                throw new StorageException("Something went wrong when trying to get payment audit from database, " +
+                    "please check inner exception", ex);
             }
         }
 
-        public async Task Upsert(PaymentAudit paymentObject)
+        public async Task Upsert(string key, T dataObject)
         {
-            if(paymentObject is null)
-                throw new ArgumentNullException(nameof(paymentObject));
+            if(dataObject is null)
+                throw new ArgumentNullException(nameof(dataObject));
             try
             {
-                if(await _context.PaymentAudits.FirstOrDefaultAsync(x => x.BankTranscationId == paymentObject.BankTranscationId) is null)
-                {
-                    _context.PaymentAudits.Add(paymentObject);
-                }
-                else
-                {
-                    _context.PaymentAudits.Update(paymentObject);
-                }
-                               
-                await _context.SaveChangesAsync();
+                await _database.StringSetAsync(key, JsonSerializer.Serialize<T>(dataObject));
             }
             catch(Exception ex)
             {

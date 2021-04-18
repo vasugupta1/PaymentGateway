@@ -35,7 +35,7 @@ namespace PaymentGateway.Services.PaymentProcessor
 
                 if(!bankingResponse.Successful)
                 {
-                    await _storageService.Upsert(new PaymentAudit(bankingResponse.Id, request, Status.Failed));
+                    await _storageService.Upsert(bankingResponse.Id, new PaymentAudit(request, Status.Failed));
 
                     return new UnsuccessfulPaymentProcessing()
                     {
@@ -43,7 +43,7 @@ namespace PaymentGateway.Services.PaymentProcessor
                     };
                 }
 
-                await _storageService.Upsert(new PaymentAudit(bankingResponse.Id, request, Status.Completed));
+                await _storageService.Upsert(bankingResponse.Id, new PaymentAudit(request, Status.Completed));
 
                 return new SuccessfulPaymentProcessing()
                 {

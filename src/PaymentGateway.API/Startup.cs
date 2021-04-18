@@ -17,6 +17,7 @@ using PaymentGateway.Services.PaymentProcessor.Interface;
 using PaymentGateway.Services.Storage;
 using PaymentGateway.Services.Storage.Interface;
 using Refit;
+using StackExchange.Redis;
 
 namespace PaymentGateway.API
 {
@@ -41,10 +42,11 @@ namespace PaymentGateway.API
             services.AddScoped<IBankingRefitServiceProvider>(x => RestService.For<IBankingRefitServiceProvider>(configObject.Bank.Url));
             services.AddScoped<DbContext, PaymentAuditDBContext>();
             services.AddScoped<IBankingService, BankingService>();
-            services.AddScoped<IStorageService<PaymentAudit>, StorageService>();
+            services.AddScoped<IStorageService<PaymentAudit>, StorageService<PaymentAudit>>();
             services.AddScoped<IPaymentProcessorService, PaymentProcessorService>();
             services.AddScoped<IUserService>(x => new UserService(configObject.Authentication));
-            
+            services.AddSingleton(ConnectionMultiplexer.Connect(configObject.RedisSettings.ConnectionString).GetDatabase());
+
             services.AddApiVersioning(config => {
                  // Specify the default API Version as 1.0
                 config.DefaultApiVersion = new ApiVersion(1, 0);
