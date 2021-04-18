@@ -17,7 +17,7 @@ namespace PaymentGateway.Services.PaymentProcessor
     {
         private readonly IBankingService _bankingService;
         private readonly IStorageService<PaymentAudit> _storageService;
-
+        
         public PaymentProcessorService(IBankingService bankingService, IStorageService<PaymentAudit> storageService)
         {
             _bankingService = bankingService ?? throw new ArgumentNullException(nameof(bankingService));
@@ -35,16 +35,14 @@ namespace PaymentGateway.Services.PaymentProcessor
 
                 if(!bankingResponse.Successful)
                 {
-                    await _storageService.Upsert(new PaymentAudit(bankingResponse.Id, request, Status.Failed));
-
+                    UpsertPaymentAudit(Status.Failed, bankingResponse.Id, request);
                     return new UnsuccessfulPaymentProcessing()
                     {
                         Message = $"Bank has denied the payment, please contact the bank and refer to this id : {bankingResponse.Id}"
                     };
                 }
 
-                await _storageService.Upsert(new PaymentAudit(bankingResponse.Id, request, Status.Completed));
-
+                UpsertPaymentAudit(Status.Completed, bankingResponse.Id, request);
                 return new SuccessfulPaymentProcessing()
                 {
                     PaymentId = bankingResponse.Id,
@@ -59,6 +57,20 @@ namespace PaymentGateway.Services.PaymentProcessor
             {
                 throw new PaymentProcessorServiceException("Something went wrong, please check inner exception", ex);
             }
+        }
+
+        private async void UpsertPaymentAudit(Status status, string id ,PaymentProcessingRequest request)
+        {
+            await _storageService.Upsert(id, new PaymentAudit()
+                    {
+                        CurrencyCode = request.CurrencyCode, 
+                        ExpiryMonth = request.ExpiryMonth, 
+                        ExpiryYear =  request.ExpiryYear, 
+                        CVV = request.CVV,
+                        CardNumber = request.CardNumber, 
+                        Amount = request.Amount, 
+                        Status = status
+                    });
         }
     }
 }
