@@ -13,4 +13,4 @@ services:
         - 'redis_data:/bitnami/redis/data'
 volumes:
     redis_data:
-    driver: local
+    driver: null
