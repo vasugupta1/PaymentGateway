@@ -1,6 +1,6 @@
 # PaymentGateway
 
-API which can be used an merchant to offer 2 endpoints :
+API which offers 2 endpoints that can be used an merchants :
 1) Payment Processing Endpoint which is used to validated and process card details of the user
 2) Payment Retrieval Endpoint which is used to retrieve previous payments.
 
