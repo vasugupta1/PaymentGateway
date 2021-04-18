@@ -11,7 +11,7 @@ API which offers 2 endpoints that can be used an merchants :
 # Authentication
 Username : admin , Password : adminpassword
 
-#Swagger
+# Swagger
 * Payment Gateway : https://localhost:44396/swagger
 
 # Requests
@@ -53,7 +53,7 @@ Response:
   "amount": 0
 }
 
-## Validation Rules ##
+# Validation Rules 
 * Currency Code : must be length 3
 * Expiry Month : must be in range of 1 -> 12
 * Expiry Year : must be in range of 2021 -> 2999
@@ -61,14 +61,14 @@ Response:
 * Card Number : must have min length of 1 and max length of 19
 * Amount : must be in range of 0.0 -> 1.79769313486232E+308
 
-## Logging ##
+# Logging 
 Kibana : https://localhost:5601
 Elasticsearch : http://localhost:9200
 
-## CI ##
+# CI 
 https://github.com/vasugupta1/PaymentGateway/actions
 
-## Storage ##
+# Storage 
 Redis : https://hub.docker.com/r/bitnami/redis/
 Connection String : 127.0.0.1:6379
 
