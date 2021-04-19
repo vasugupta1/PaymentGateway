@@ -9,7 +9,7 @@ using System.Text.Json;
 
 namespace PaymentGateway.Services.Tests.Storage
 {
-    public class StorageServiceTests
+    public partial class StorageServiceTests
     {
         private protected Mock<IDatabase> _mockedDatabase;
         private protected StorageService<DataModel> _sut;
@@ -26,27 +26,15 @@ namespace PaymentGateway.Services.Tests.Storage
             var output = Assert.Throws<ArgumentNullException>(()=> new StorageService<DataModel>(null));
             output.ParamName.Should().Be("database");
         }
-
-        private static string[] EmptyKeyTestSource => new string[]{"", null};
-        [TestCaseSource("EmptyKeyTestSource")]
-        public void GivenKeyIsEmptyOrNull_WhenICallGet_ThenArgumentNullExceptionIsThrown(string key)
-        {
-            var output = Assert.ThrowsAsync<ArgumentNullException>(()=> _sut.Get(key));
-            output.ParamName.Should().Be("key");
-        }
-
-        [Test]
-        public void GivenAValidKey_WhenICallGet_ThenADataModelIsReturned()
-        {
-            var inputData = GetStringData();
-            _mockedDatabase.Setup(x => x.StringGetAsync(It.IsAny<RedisKey>(), It.IsAny<CommandFlags>())).ReturnsAsync(inputData);
-
-            
-        }
-
         private string GetStringData()
         {
             return JsonSerializer.Serialize(new DataModel());
         }
+
+        private DataModel GetModel(string inputData)
+        {
+            return JsonSerializer.Deserialize<DataModel>(inputData);
+        }
+        private static string[] EmptyKeyTestSource => new string[]{"", null};
     }
 }

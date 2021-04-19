@@ -1,4 +1,3 @@
-using System;
 using PaymentGateway.Common.Models.Enums;
 using System.Text.Json.Serialization;
 
@@ -20,8 +19,5 @@ namespace PaymentGateway.Common.Models.Storage
         public double Amount { get; set; }
         [JsonPropertyName("Status")]
         public Status Status;
-        [JsonPropertyName("iv")]
-        public string IV;
-
     }
 }
