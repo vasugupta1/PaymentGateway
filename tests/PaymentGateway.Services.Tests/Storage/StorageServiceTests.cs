@@ -38,7 +38,10 @@ namespace PaymentGateway.Services.Tests.Storage
         [Test]
         public void GivenAValidKey_WhenICallGet_ThenADataModelIsReturned()
         {
-            _mockedDatabase.Setup(x => x.StringGetAsync(It.IsAny<RedisKey>(), It.IsAny<CommandFlags>())).ReturnsAsync();
+            var inputData = GetStringData();
+            _mockedDatabase.Setup(x => x.StringGetAsync(It.IsAny<RedisKey>(), It.IsAny<CommandFlags>())).ReturnsAsync(inputData);
+
+            
         }
 
         private string GetStringData()
