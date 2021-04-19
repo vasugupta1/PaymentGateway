@@ -33,7 +33,8 @@ namespace PaymentGateway.Services.Tests.Storage
             
             //Act & Assert
            Assert.DoesNotThrowAsync(()=> _sut.Upsert(key, expectedOutput)); 
-           _mockedDatabase.Verify(x=>x.StringSetAsync(It.Is<RedisKey>(value => value.Equals(key)), 
+           _mockedDatabase.Verify(x=>
+                                  x.StringSetAsync(It.Is<RedisKey>(value => value.Equals(key)), 
                                                       It.IsAny<RedisValue>(), 
                                                       null, 
                                                       It.IsAny<When>(), 
@@ -48,7 +49,8 @@ namespace PaymentGateway.Services.Tests.Storage
             var genException = new Exception("fake-exception");
             var input = GetModel(GetStringData());
             var key = "fake-key";
-            _mockedDatabase.Setup(x => x.StringSetAsync(It.IsAny<RedisKey>(), 
+            _mockedDatabase.Setup(x => 
+                                  x.StringSetAsync(It.IsAny<RedisKey>(), 
                                                         It.IsAny<RedisValue>(), 
                                                         null, 
                                                         It.IsAny<When>(), 
