@@ -43,7 +43,7 @@ services:
     paymentapi:
       image: docker.io/vasugupta1/webapi:latest
       ports:
-        - 44396:44396
+        - 8080:80
 volumes:
     redis_data:
     driver: null

@@ -4,7 +4,7 @@ FROM mcr.microsoft.com/dotnet/sdk:3.1 AS build
 ARG BUILDCONFIG=RELEASE
 ARG VERSION=1.0.0
 
-EXPOSE 44396
+EXPOSE 80
 
 COPY src/PaymentGateway.API/PaymentGateway.API.csproj /build/PaymentGateway.API/
 COPY src/PaymentGateway.Common/PaymentGateway.Common.csproj /build/PaymentGateway.Common/
