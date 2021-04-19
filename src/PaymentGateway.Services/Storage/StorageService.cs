@@ -44,6 +44,8 @@ namespace PaymentGateway.Services.Storage
         {
             if(dataObject is null)
                 throw new ArgumentNullException(nameof(dataObject));
+            if(string.IsNullOrEmpty(key))
+                throw new ArgumentNullException(nameof(key));
             try
             {
                 await _database.StringSetAsync(key, JsonSerializer.Serialize<T>(dataObject));

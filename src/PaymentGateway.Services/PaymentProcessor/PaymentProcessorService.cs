@@ -9,6 +9,7 @@ using PaymentGateway.Services.Banking.Interface;
 using PaymentGateway.Services.PaymentProcessor.Exceptions;
 using PaymentGateway.Services.PaymentProcessor.Interface;
 using PaymentGateway.Services.PaymentProcessor.Models;
+using PaymentGateway.Services.Storage.Exceptions;
 using PaymentGateway.Services.Storage.Interface;
 
 namespace PaymentGateway.Services.PaymentProcessor
@@ -35,23 +36,30 @@ namespace PaymentGateway.Services.PaymentProcessor
 
                 if(!bankingResponse.Successful)
                 {
-                    UpsertPaymentAudit(Status.Failed, bankingResponse.Id, request);
+                    await UpsertPaymentAudit(Status.Failed, bankingResponse.Id, request);
                     return new UnsuccessfulPaymentProcessing()
                     {
-                        Message = $"Bank has denied the payment, please contact the bank and refer to this id : {bankingResponse.Id}"
+                        Message = $"Bank has denied the payment, please contact the bank and refer to this id : {bankingResponse.Id}",
+                        Success = false
                     };
                 }
 
-                UpsertPaymentAudit(Status.Completed, bankingResponse.Id, request);
+                await UpsertPaymentAudit(Status.Completed, bankingResponse.Id, request);
+
                 return new SuccessfulPaymentProcessing()
                 {
                     PaymentId = bankingResponse.Id,
-                    Message = "The payment has been accepted by the bank"
+                    Message = "The payment has been accepted by the bank",
+                    Success = true
                 };
             }
             catch(BankingServiceException bsex)
             {
                 throw new PaymentProcessorServiceException("Something went wrong when calling the banking service, please check inner exception", bsex);
+            }
+            catch(StorageException ssex)
+            {
+                throw new PaymentProcessorServiceException("Something went wrong when trying to save, please check inner exception", ssex);
             }
             catch(Exception ex)
             {
@@ -59,7 +67,7 @@ namespace PaymentGateway.Services.PaymentProcessor
             }
         }
 
-        private async void UpsertPaymentAudit(Status status, string id ,PaymentProcessingRequest request)
+        private async Task UpsertPaymentAudit(Status status, string id ,PaymentProcessingRequest request)
         {
             await _storageService.Upsert(id, new PaymentAudit()
                     {

@@ -11,6 +11,10 @@ namespace PaymentGateway.Services.AuthUsers
         {
             _usernamesAndPassword = usernamesAndPassword ?? throw new ArgumentNullException(nameof(usernamesAndPassword));
         }
+        ///
+        // If this code written for production, then we will have a seperate service which will validate against a database of existing users, but for the sake of this project
+        // a dictonary is used to keep track of username and passwords which are allowed to use the two endpoints
+        ///
         public bool IsValid(string username, string password)
         {
             if(_usernamesAndPassword.ContainsKey(username) && _usernamesAndPassword[username].Equals(password, StringComparison.CurrentCulture))
