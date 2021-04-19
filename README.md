@@ -19,7 +19,7 @@ Username : admin , Password : adminpassword
 ## Make payment ##
 Request :
 curl -X 'POST' \
-  'https://localhost:44396/api/v1/PaymentProcessor' \
+  'https://localhost:8080/api/v1/PaymentProcessor' \
   -H 'accept: text/plain' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -41,7 +41,7 @@ Response :
 ## Retrieve payment ##
 Request:
 curl -X 'GET' \
-  'https://localhost:44396/api/v1/PaymentRetrieval/payment-retrieval/pamentid' \
+  'https://localhost:8080/api/v1/PaymentRetrieval/payment-retrieval/pamentid' \
   -H 'accept: text/plain'
 Response:
 {
@@ -62,7 +62,7 @@ Response:
 * Amount : must be in range of 0.0 -> 1.79769313486232E+308
 
 # Logging 
-Kibana : https://localhost:5601
+Kibana : http://localhost:5601/app/kibana
 Elasticsearch : http://localhost:9200
 
 # CI 
