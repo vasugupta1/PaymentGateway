@@ -1,6 +1,6 @@
 # PaymentGateway
 
-API which offers 2 endpoints that can be used an merchants :
+This api offers 2 endpoints that can be used by merchants :
 1) Payment Processing Endpoint which is used to validated and process card details of the user
 2) Payment Retrieval Endpoint which is used to retrieve previous payments.
 
@@ -12,7 +12,7 @@ API which offers 2 endpoints that can be used an merchants :
 Username : admin , Password : adminpassword
 
 # Swagger
-* Payment Gateway : https://localhost:44396/swagger
+* Payment Gateway : http://localhost:8080/swagger/index.html
 
 # Requests
 
