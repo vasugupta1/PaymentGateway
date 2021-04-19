@@ -7,8 +7,8 @@ services:
         # ALLOW_EMPTY_PASSWORD is recommended only for development.
         - ALLOW_EMPTY_PASSWORD=yes
         - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
-      ports:
-        - '6379:6379'
+      command: 
+        ["redis-server", "--bind", "redis", "--port", "6379"]
       volumes:
         - 'redis_data:/bitnami/redis/data'
     elasticsearch:
@@ -40,6 +40,10 @@ services:
         - 5601:5601
       depends_on:
         - elasticsearch
+    paymentapi:
+      image: docker.io/vasugupta1/webapi:latest
+      ports:
+        - 8080:80
 volumes:
     redis_data:
     driver: null
