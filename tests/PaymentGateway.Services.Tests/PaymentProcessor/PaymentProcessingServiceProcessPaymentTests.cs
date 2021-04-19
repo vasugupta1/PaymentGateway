@@ -60,7 +60,8 @@ namespace PaymentGateway.Services.Tests.PaymentProcessor
             Assert.Multiple(()=>
             {
                 oneOfResponseOutput.AsT1.Should().BeOfType<UnsuccessfulPaymentProcessing>();
-                oneOfResponseOutput.AsT1.Message.Should().Be($"Bank has denied the payment, please contact the bank and refer to this id : {bankingResponse.Id}");
+                oneOfResponseOutput.AsT1.Message.Should()
+                    .Be($"Bank has denied the payment, please contact the bank and refer to this id : {bankingResponse.Id}");
                 oneOfResponseOutput.IsT0.Should().BeFalse();
                 oneOfResponseOutput.IsT1.Should().BeTrue();
                 _mockedStorageService.Verify(x=>x.Upsert(
