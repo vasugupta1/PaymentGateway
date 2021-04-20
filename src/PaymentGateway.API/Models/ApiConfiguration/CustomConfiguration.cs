@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace PaymentGateway.API.Models
+namespace PaymentGateway.API.Models.ApiConfiguration
 {
     public class CustomConfiguration
     {
