@@ -41,7 +41,7 @@ services:
       depends_on:
         - elasticsearch
     paymentapi:
-      image: docker.io/vasugupta1/webapi:latest
+      image: docker.io/vasugupta1/webapi:v1.0.1
       ports:
         - 8080:80
 volumes:
