@@ -42,19 +42,17 @@ namespace PaymentGateway.API.Tests.Controllers
             output.ParamName.Should().Be("paymentProcessorService");
         }
 
-        private static List<PaymentProcessingRequest> BadRequestSource = new List<PaymentProcessingRequest>()
-        {
-            {
-                new PaymentProcessingRequest()
+        private PaymentProcessingRequest GetPaymentProcessingRequest()
+        {   
+               return new PaymentProcessingRequest()
                 {
-                    CurrencyCode = "",
-                    ExpiryMonth = 123123,
-                    ExpiryYear = 12323123,
-                    CVV = 123123,
+                    CurrencyCode = "GBP",
+                    ExpiryMonth = 12,
+                    ExpiryYear = 2021,
+                    CVV = 123,
                     CardNumber = "123123123123123123",
-                    Amount = -0.01
-                }
-            }
-        };
+                    Amount = 100
+                };
+        }
     }
 }
