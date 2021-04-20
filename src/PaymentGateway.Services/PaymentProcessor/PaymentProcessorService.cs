@@ -77,7 +77,8 @@ namespace PaymentGateway.Services.PaymentProcessor
                         CVV = request.CVV,
                         CardNumber = request.CardNumber, 
                         Amount = request.Amount, 
-                        Status = status
+                        Status = status,
+                        TranscationId = id
                     });
         }
     }
