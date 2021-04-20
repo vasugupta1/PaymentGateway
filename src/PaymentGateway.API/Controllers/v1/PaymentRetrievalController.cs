@@ -22,7 +22,7 @@ namespace PaymentGateway.API.Controllers.v1
 
         public PaymentRetrievalController(ILogger<PaymentRetrievalController> logger, IStorageService<PaymentAudit> storageService)
         {
-            _logger = logger;
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _storageService = storageService ?? throw new ArgumentNullException(nameof(storageService));
         }
 
@@ -38,6 +38,7 @@ namespace PaymentGateway.API.Controllers.v1
             try
             {
                 var oneOfResponse = await _storageService.Get(id);
+
                 return oneOfResponse.Match<IActionResult>(
                     PaymentAudit => new OkObjectResult(PaymentAudit),
                     NotFoundResponse => new NotFoundObjectResult(NotFoundResponse));

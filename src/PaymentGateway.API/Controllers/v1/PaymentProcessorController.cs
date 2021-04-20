@@ -22,7 +22,7 @@ namespace PaymentGateway.API.Controllers.v1
 
         public PaymentProcessorController(ILogger<PaymentProcessorController> logger, IPaymentProcessorService paymentProcessorService)
         {
-            _logger = logger;
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _paymentProcessorService = paymentProcessorService ?? throw new ArgumentNullException(nameof(paymentProcessorService));
         }
 

@@ -6,18 +6,20 @@ namespace PaymentGateway.Services.AuthUsers
 {
     public class UserService : IUserService
     {
-        private readonly IReadOnlyDictionary<string, string>  _usernamesAndPassword;
-        public UserService(IReadOnlyDictionary<string, string> usernamesAndPassword)
+        private readonly IReadOnlyDictionary<string, string>  _usernamesAndPasswordDatabase;
+        public UserService(IReadOnlyDictionary<string, string> usernamesAndPasswordDatabase)
         {
-            _usernamesAndPassword = usernamesAndPassword ?? throw new ArgumentNullException(nameof(usernamesAndPassword));
+            _usernamesAndPasswordDatabase = usernamesAndPasswordDatabase 
+            ?? throw new ArgumentNullException(nameof(usernamesAndPasswordDatabase));
         }
         ///
-        // If this code written for production, then we will have a seperate service which will validate against a database of existing users, but for the sake of this project
-        // a dictonary is used to keep track of username and passwords which are allowed to use the two endpoints
+        // If this code written for production, then we will have a seperate service which will communication with a external database that will contain a list of usersnames and passwords, but for the sake of this project
+        // a dictonary is used to keep track of username and passwords which are allowed to use the two endpoints. This dictinary of username and passwords can be found in appsettings.json file under the CustomConfiguration:Authentication property
         ///
         public bool IsValid(string username, string password)
         {
-            if(_usernamesAndPassword.ContainsKey(username) && _usernamesAndPassword[username].Equals(password, StringComparison.CurrentCulture))
+            if(_usernamesAndPasswordDatabase.ContainsKey(username) && 
+                _usernamesAndPasswordDatabase[username].Equals(password, StringComparison.CurrentCulture))
             {
                 return true;
             }
