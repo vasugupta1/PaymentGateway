@@ -7,9 +7,13 @@ This api offers 2 endpoints that can be used by merchants :
 # Prequisties
 * .Net Core SDK 3.1
 * Docker 
+* Docker Compose
+# How to run
+Use command docker-compose up --build at the root of the directory to start up the containers
 
 # Authentication
-Username : admin , Password : adminpassword
+* Username : admin , Password : adminpassword
+* Username : user1 , Password : password
 
 # Swagger
 * Payment Gateway : http://localhost:8080/swagger/index.html
