@@ -32,7 +32,7 @@ curl -X 'POST' \
   "expiryYear": 2999,
   "cvv": 999,
   "cardNumber": "string",
-  "amount": 0
+  "amount": 200
 }'
 Response : 
 {
@@ -54,7 +54,7 @@ Response:
   "expiryYear": 2999,
   "cvv": 999,
   "cardNumber": "123123123",
-  "amount": 0
+  "amount": 200
 }
 
 # Validation Rules 
