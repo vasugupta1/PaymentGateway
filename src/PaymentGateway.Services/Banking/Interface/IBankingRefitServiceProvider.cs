@@ -7,7 +7,7 @@ namespace PaymentGateway.Services.Banking.Interface
 {
     public interface IBankingRefitServiceProvider
     {
-        [Post("/process-users-payment")]
+        [Post("/ProcessUsersPayment")]
         Task<BankingResponse> ProcessPayment([Body]PaymentProcessingRequest paymentRequest);
     }
 }

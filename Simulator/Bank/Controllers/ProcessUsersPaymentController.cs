@@ -20,7 +20,7 @@ namespace Bank.Controllers
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        [HttpPost("process-users-payment")]
+        [HttpPost]
         public async Task<IActionResult> ProcessUsersPayment([FromBody] PaymentRequest request)
         {
             if (!ModelState.IsValid)
