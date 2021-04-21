@@ -23,7 +23,6 @@ FROM mcr.microsoft.com/dotnet/aspnet:3.1 as runtime
 WORKDIR /app
 COPY --from=build /build/out .
 
-
 ENTRYPOINT [ "dotnet", "Bank.dll" ]
 
 

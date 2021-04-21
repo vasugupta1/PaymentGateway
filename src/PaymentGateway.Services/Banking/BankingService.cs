@@ -23,7 +23,12 @@ namespace PaymentGateway.Services.Banking
 
             try
             {
-                return await _bankingService.ProcessPayment(paymentRequest);
+                //return await _bankingService.ProcessPayment(paymentRequest);
+                return new BankingResponse()
+                {
+                    Id = Guid.NewGuid().ToString(),
+                    Successful = true
+                };
             }
             catch(Exception ex)
             {
