@@ -54,7 +54,9 @@ Response:
   "expiryYear": 2999,
   "cvv": 999,
   "cardNumber": "123123123",
-  "amount": 200
+  "amount": 200,
+  "status": "completed",
+  "transcationId":"abc-ssd-sklaslkd-fg"
 }
 
 # Validation Rules 
