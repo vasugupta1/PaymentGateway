@@ -98,9 +98,11 @@ https://hub.docker.com/repository/docker/vasugupta1/webapi
 * Moq
 * Nunit
 
-# Assumptions 
+# Assumptions & Notes
+* I assumed that when we call the banking api to process a payment, it will return back a trasncation Id and the status flag which will represent if the processing was successfull or not
+* Other then card details no other information is being requested to be processed of the user ie email, first name, last name, address 
 * The fake bank api is created in .netcore and has a docker file which can be used to build 
-* I wasn't able to host the bank api in the same docker compose hence I had to mock the reponse of the api 
+* I wasn't able to host the bank api in the same docker compose file hence I had to mock the reponse of the api 
 * All of the payment processing requests are stored in redis and can be connected via localhost:6379
 
 # ToDo
