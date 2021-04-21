@@ -14,9 +14,9 @@ RUN dotnet restore ./build/PaymentGateway.API/PaymentGateway.API.csproj
 RUN dotnet restore ./build/PaymentGateway.Common/PaymentGateway.Common.csproj 
 RUN dotnet restore ./build/PaymentGateway.Services/PaymentGateway.Services.csproj 
 
-COPY src/PaymentGateway.API/. ./build//PaymentGateway.API/
-COPY src/PaymentGateway.Common/. ./build//PaymentGateway.Common/
-COPY src/PaymentGateway.Services/. ./build//PaymentGateway.Services/
+COPY src/PaymentGateway.API/. ./build/PaymentGateway.API/
+COPY src/PaymentGateway.Common/. ./build/PaymentGateway.Common/
+COPY src/PaymentGateway.Services/. ./build/PaymentGateway.Services/
 
 WORKDIR /build/
 

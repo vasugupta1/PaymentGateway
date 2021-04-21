@@ -63,7 +63,7 @@ namespace PaymentGateway.Services.Tests.PaymentProcessor
                 ExpiryYear = GetPaymentProcessingRequest().ExpiryYear,
                 CVV = GetPaymentProcessingRequest().CVV,
                 Amount = GetPaymentProcessingRequest().Amount,
-                Status = status
+                Status = status.ToString()
             };
         }
     }

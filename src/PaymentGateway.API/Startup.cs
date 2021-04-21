@@ -78,6 +78,7 @@ namespace PaymentGateway.API
             {
                 app.UseDeveloperExceptionPage();
             }
+
             app.UseSwagger();
 
             app.UseSwaggerUI(c =>

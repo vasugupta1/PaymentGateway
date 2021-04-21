@@ -23,20 +23,7 @@ namespace PaymentGateway.Services.Banking
 
             try
             {
-                //What the code will look like if I had a real bank api endpoint
-                // var response = await _bankingService.ProcessPayment(paymentRequest);
-                // if(!response.IsSuccessStatusCode)
-                // {
-                //     throw new HttpException(response.ReasonPhrase, new Exception("Error when calling banking service"), response.StatusCode);
-                // }                    
-                // var contentString = await response.Content.ReadAsStringAsync();
-                // return JsonSerializer.Deserialize<BankingResponse>(contentString);
-
-                return new BankingResponse()
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    Successful = true
-                };
+                return await _bankingService.ProcessPayment(paymentRequest);
             }
             catch(HttpException httex)
             {

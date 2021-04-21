@@ -18,8 +18,8 @@ namespace PaymentGateway.Common.Models.Storage
         [JsonPropertyName("amount")]
         public double Amount { get; set; }
         [JsonPropertyName("status")]
-        public Status Status;
+        public string Status { get; set; }
         [JsonPropertyName("transcationId")]
-        public string TranscationId;
+        public string TranscationId { get; set; }
     }
 }
