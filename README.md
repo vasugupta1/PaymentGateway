@@ -9,7 +9,7 @@ This api offers 2 endpoints that can be used by merchants :
 * Docker 
 * Docker Compose
 # How to run
-Use command docker-compose up --build at the root of the directory to start up the containers
+Use command 'docker-compose up --build' at the root of the directory to start up the containers
 
 # Authentication
 * Username : admin , Password : adminpassword
