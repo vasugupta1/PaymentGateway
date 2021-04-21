@@ -74,7 +74,34 @@ https://github.com/vasugupta1/PaymentGateway/actions
 
 # Storage 
 Redis : https://hub.docker.com/r/bitnami/redis/
-Connection String : 127.0.0.1:6379
 
 # WebApi
 https://hub.docker.com/repository/docker/vasugupta1/webapi
+
+# Built With
+* .Net Core SDK
+* Swagger
+* Refit
+* FluentValidations.AspNetCore
+* OneOf
+* StackExchange.Redis
+* Serilog.Sinks.Elasticsearch
+* Microsoft.AspNetCore.Mvc.Versioning
+* System.Text.Json
+* AutoFixture
+* FluentAssertions
+* Moq
+* Nunit
+
+# Assumptions 
+* The fake bank api is created in .netcore and has a docker file which can be used to build 
+* I wasn't able to host the bank api in the same docker compose hence I had to mock the reponse of the api 
+* All of the payment processing requests are stored in redis and can be connected via localhost:6379
+
+# ToDo
+* Find a way to host the two apis within the same docker-compose.
+* Add data encryption, usign RSA or other encryption schemes
+* Implement a better user service which will contain all the clients usernames and passwords which should have access to this api
+* Add Grafana support for application metrics
+* Intergrate Auth0 for JWT authentication 
+
