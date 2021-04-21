@@ -1,12 +1,12 @@
 using System;
 using FluentValidation;
-using PaymentGateway.Common.Models.Payment;
+using Bank.Models.Request;
 
-namespace PaymentGateway.API.Models.Validators
+namespace Bank.Models.RequestValidator
 {
-    public class PaymentProcessingRequestValidator : AbstractValidator<PaymentProcessingRequest>
+    public class RequestValidator : AbstractValidator<PaymentRequest>
     {
-        public PaymentProcessingRequestValidator()
+        public RequestValidator()
         {
             RuleFor(x => x.Amount)
             .NotEmpty()

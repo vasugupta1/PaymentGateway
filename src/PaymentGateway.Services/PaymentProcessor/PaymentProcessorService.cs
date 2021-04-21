@@ -67,7 +67,7 @@ namespace PaymentGateway.Services.PaymentProcessor
             }
         }
 
-        private async Task UpsertPaymentAudit(Status status, string id ,PaymentProcessingRequest request)
+        private async Task UpsertPaymentAudit(Status status, string id, PaymentProcessingRequest request)
         {
             await _storageService.Upsert(id, new PaymentAudit()
                     {
@@ -77,7 +77,7 @@ namespace PaymentGateway.Services.PaymentProcessor
                         CVV = request.CVV,
                         CardNumber = request.CardNumber, 
                         Amount = request.Amount, 
-                        Status = status,
+                        Status = status.ToString(),
                         TranscationId = id
                     });
         }
