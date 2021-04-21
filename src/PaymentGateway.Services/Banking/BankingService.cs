@@ -19,19 +19,15 @@ namespace PaymentGateway.Services.Banking
         public async Task<BankingResponse> ProcessPayment(PaymentProcessingRequest paymentRequest)
         {
             if(paymentRequest is null)
-                throw new ArgumentException($"Parameter {nameof(paymentRequest)} cannot be null");
+                throw new ArgumentNullException(nameof(paymentRequest));
 
             try
             {
                 return await _bankingService.ProcessPayment(paymentRequest);
             }
-            catch(HttpException httex)
-            {
-                throw new BankingServiceException("Error occured when trying to call bank, please check inner exception", httex);
-            }
             catch(Exception ex)
             {
-                throw new BankingServiceException("Error occured when trying to handle payment, please check inner exception", ex);
+                throw new BankingServiceException("Error occured when calling bank rest api, please check inner exception", ex);
             }
         }
     }
