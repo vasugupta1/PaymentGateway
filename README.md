@@ -65,6 +65,9 @@ Response:
 * Card Number : must have min length of 1 and max length of 19
 * Amount : must be in range of 0.0 -> 1.79769313486232E+308
 
+* This validation can be found under PaymentGateway/src/PaymentGateway.API/Models/Validators/PaymentProcessingRequestValidator.cs 
+
+
 # Logging 
 Kibana : http://localhost:5601/app/kibana
 Elasticsearch : http://localhost:9200
